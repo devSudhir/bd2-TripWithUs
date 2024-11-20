@@ -215,7 +215,7 @@ app.get('/', (req, res) => {
   res.sendFile(resolve(__dirname, 'pages/index.html'));
 });
 
-function getHotelsByPrice(hotes, order) {
+function getHotelsByPrice(hotels, order) {
   const copyHotels = [...hotels];
   if (order === 'low-to-high') {
     return copyHotels.sort((a, b) => a.price - b.price);
@@ -226,10 +226,10 @@ function getHotelsByPrice(hotes, order) {
 
 app.get('/hotels/sort/pricing', (req, res) => {
   const { pricing } = req.query;
-  res.json(getHotelsByPrice(hotels, pricing));
+  res.json({ hotels:getHotelsByPrice(hotels, pricing)});
 });
 
-function getHotelsByRating(hotes, order) {
+function getHotelsByRating(hotels, order) {
   const copyHotels = [...hotels];
   if (order === 'low-to-high') {
     return copyHotels.sort((a, b) => a.rating - b.rating);
@@ -240,10 +240,10 @@ function getHotelsByRating(hotes, order) {
 
 app.get('/hotels/sort/rating', (req, res) => {
   const { rating } = req.query;
-  res.json(getHotelsByRating(hotels, rating));
+  res.json({ hotels:getHotelsByRating(hotels, rating)});
 });
 
-function getHotelsByReviews(hotes, order) {
+function getHotelsByReviews(hotels, order) {
   const copyHotels = [...hotels];
   if (order === 'least-to-most') {
     return copyHotels.sort((a, b) => a.reviews - b.reviews);
@@ -254,7 +254,7 @@ function getHotelsByReviews(hotes, order) {
 
 app.get('/hotels/sort/reviews', (req, res) => {
   const { reviews } = req.query;
-  res.json(getHotelsByReviews(hotels, reviews));
+  res.json({ hotels:getHotelsByReviews(hotels, reviews)});
 });
 
 function filterHotelsByAmenity(hotels, amenity) {
@@ -263,7 +263,7 @@ function filterHotelsByAmenity(hotels, amenity) {
 
 app.get('/hotels/filter/amenity', (req, res) => {
   const { amenity } = req.query;
-  res.json(filterHotelsByAmenity(hotels, amenity));
+  res.json({ hotels:filterHotelsByAmenity(hotels, amenity)});
 });
 
 function filterHotelsByCountry(hotels, country) {
@@ -272,7 +272,7 @@ function filterHotelsByCountry(hotels, country) {
 
 app.get('/hotels/filter/country', (req, res) => {
   const { country } = req.query;
-  res.json(filterHotelsByCountry(hotels, country));
+  res.json({ hotels:filterHotelsByCountry(hotels, country)});
 });
 
 function filterHotelsByCategory(hotels, category) {
@@ -281,11 +281,11 @@ function filterHotelsByCategory(hotels, category) {
 
 app.get('/hotels/filter/category', (req, res) => {
   const { category } = req.query;
-  res.json(filterHotelsByCategory(hotels, category));
+  res.json({ hotels:filterHotelsByCategory(hotels, category)});
 });
 
 app.get('/hotels', (req, res) => {
-  res.json(hotels);
+  res.json({ hotels:hotels});
 });
 
 app.listen(port, () => {
